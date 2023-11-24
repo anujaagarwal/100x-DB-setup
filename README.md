@@ -31,7 +31,7 @@
 - `repostid` (bigint, foreign key, nullable, references: posts.id)
 - `isRepost` (boolean, not null)
 - `userId` (bigint, foreign key, not null, references: users.id)
-- `content` (string, max 280 chars, not null)
+- `content` (string, max 280 chars, nullable)
 - `postedAt` (timestamp, nullable)
 - `createdAt` (timestamp, not null, default: NOW)
 - `deletedAt` (timestamp, nullable)
