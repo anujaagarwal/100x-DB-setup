@@ -27,14 +27,14 @@
 
 **Attributes:**
 
-- `id` (bigint, serial, primary key)
-- `repostid` (bigint, foreign key, nullable, references: posts.id)
-- `isRepost` (boolean, not null)
-- `userId` (bigint, foreign key, not null, references: users.id)
-- `content` (string, max 280 chars, nullable)
-- `postedAt` (timestamp, nullable)
-- `createdAt` (timestamp, not null, default: NOW)
-- `deletedAt` (timestamp, nullable)
+- `id`: (bigint serial primary key)
+- `type`: (enum ['post' | 'repost' | 'reply'] (not null, default: 'post'))
+- `referenceId`: (bigint foreign key nullable (references: posts.id))
+- `userId`: (bigint foreign key (not null, references: users.id))
+- `content`: (string 280 chars max (null))
+- `postedAt`: (timestamp nullable)
+- `createdAt`: (timestamp (not null, default: NOW))
+- `deletedAt`: (timestamp nullable)
 
 ## User Follows Table
 
@@ -42,7 +42,7 @@
 
 **Attributes:**
 
-- `Id` (bigint, primary key)
+- `id` (bigint, primary key)
 - `follower_id` (bigint, foreign key, references users.id)
 - `followed_id` (bigint, foreign key, references users.id)
 - `Followed_at` (timestamp)
@@ -58,7 +58,7 @@
 
 **Attributes:**
 
-- `Id` (bigint, primary key)
+- `id` (bigint, primary key)
 - `user_id` (bigint, foreign key, references users.id)
 - `post_id` (bigint, foreign key, references posts.id)
 - `liked_at` (timestamp)
@@ -67,21 +67,8 @@
 
 - Unique combination of (`user_id`, `post_id`)
 
-## Post Replies Table
-
-**Table Name:** post_replies
-
-**Attributes:**
-
-- `id` (bigint, primary key)
-- `post_id` (bigint, foreign key, references posts.id)
-- `user_id` (bigint, foreign key, references users.id)
-- `replied_at` (timestamp)
-- `content` (text)
-
 ## Relationships
 
 - **Users <-> Posts:** One-to-Many (One user can have multiple posts)
 - **Users <-> user_follows:** Self-Referencing Many-to-Many (Users can follow many users)
 - **Posts <-> post_likes:** Many-to-Many (Posts can be liked by many users)
-- **Posts <-> post_replies:** One-to-Many (One post can have multiple replies)
