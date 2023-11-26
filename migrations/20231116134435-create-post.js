@@ -1,52 +1,52 @@
 "use strict";
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface, { DataTypes }) {
     await queryInterface.createTable("Posts", {
       id: {
-        allowNull: false,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
+        allowNull: false,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
-      content: {
-        type: Sequelize.TEXT,
-        allowNull: true,
+      type: {
+        type: DataTypes.ENUM,
+        values: ["post", "repost", "reply"],
+        defaultValue: "post",
+        allowNull: false,
       },
-      posted_at: {
-        type: Sequelize.DATE,
-      },
-      repost_id: {
-        type: Sequelize.INTEGER,
+      reference_id: {
+        type: DataTypes.BIGINT,
         allowNull: true,
         references: {
           model: "Posts",
           key: "id",
         },
       },
-      user_id: {
-        type: Sequelize.BIGINT,
-        references: {
-          key: "id",
-          model: "Users",
-        },
-      },
-      isRepost: {
-        type: Sequelize.BOOLEAN,
+      is_repost: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      createdAt: {
+      user_id: {
+        type: DataTypes.BIGINT,
         allowNull: false,
-        type: Sequelize.DATE,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
-      updatedAt: {
+      content: { type: DataTypes.STRING(280), allowNull: true },
+      posted_at: { type: DataTypes.DATE, allowNull: true },
+      created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
         allowNull: false,
-        type: Sequelize.DATE,
       },
+      deleted_at: { type: DataTypes.DATE, allowNull: true },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Posts");
-  },
+
+  async down(queryInterface, Sequelize) {},
 };

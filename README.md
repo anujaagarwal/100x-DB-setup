@@ -1,4 +1,4 @@
-# Twitter-Like Database Schema
+# Twitter-Like Database Schema Design
 
 ## Users Table
 
@@ -29,12 +29,13 @@
 
 - `id`: (bigint serial primary key)
 - `type`: (enum ['post' | 'repost' | 'reply'] (not null, default: 'post'))
-- `referenceId`: (bigint foreign key nullable (references: posts.id))
-- `userId`: (bigint foreign key (not null, references: users.id))
-- `content`: (string 280 chars max (null))
-- `postedAt`: (timestamp nullable)
-- `createdAt`: (timestamp (not null, default: NOW))
-- `deletedAt`: (timestamp nullable)
+- `reference_id`: (bigint foreign key nullable (references: posts.id))
+- `is_repost`: (bool not null)
+- `user_id`: (bigint foreign key (not null, references: users.id))
+- `content`: (string 280 chars max (can be null))
+- `posted_at`: (timestamp nullable)
+- `created_at`: (timestamp (not null, default: NOW))
+- `deleted_at`: (timestamp nullable)
 
 ## User Follows Table
 

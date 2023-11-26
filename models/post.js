@@ -1,22 +1,44 @@
 "use strict";
+
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+    static associate(models) {}
   }
   Post.init(
     {
       id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
+      },
+      type: {
+        type: DataTypes.ENUM,
+        values: ["post", "repost", "reply"],
+        defaultValue: "post",
+        allowNull: false,
+      },
+      reference_id: {
+        type: DataTypes.BIGINT,
+        allowNull: true,
+        references: {
+          model: Post,
+          key: "id",
+        },
+      },
+      is_repost: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      user_id: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
       content: {
         type: DataTypes.TEXT,
@@ -24,46 +46,21 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNullIfOriginalPost(value) {
             if (!this.isRepost && !value) {
-              throw new Error("Content is required for original posts");
+              throw new Error(
+                "Content is required for original posts or reply post"
+              );
             }
           },
         },
       },
-      isRepost: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      posted_at: {
-        type: DataTypes.DATE,
-      },
-      repost_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: "Posts",
-          key: "id",
-        },
-        allowNull: true,
-      },
-      user_id: {
-        type: DataTypes.BIGINT,
-        references: {
-          model: "Users",
-          key: "id",
-        },
-        allowNull: false,
-      },
-      createdAt: {
+      posted_at: { type: DataTypes.DATE, allowNull: true },
+      created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
+        allowNull: false,
       },
-      updatedAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-      },
+      deleted_at: { type: DataTypes.DATE, allowNull: true },
     },
-
     {
       sequelize,
       modelName: "Post",

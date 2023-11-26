@@ -1,4 +1,4 @@
-const { User, Post, UserFollow, PostLike, PostReply } = require("./models");
+const { User, Post, UserFollow, PostLike } = require("./models");
 //create
 async function createModels() {
   const user1 = await User.create({
@@ -32,6 +32,7 @@ async function createModels() {
   const Post1 = await Post.create({
     id: "1",
     content: "I am strongest.",
+    type: "post",
     posted_at: new Date(),
     user_id: user1.id,
     isRepost: false,
@@ -42,11 +43,12 @@ async function createModels() {
   const Post2 = await Post.create({
     id: "2",
     content: "I am beautiful.",
+    type: "post",
     posted_at: new Date(),
     user_id: user2.id,
-    isRepost: false,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    is_repost: false,
+    created_at: new Date(),
+    updated_at: new Date(),
   });
 
   const Follow = await UserFollow.create({
@@ -65,16 +67,6 @@ async function createModels() {
     liked_at: new Date(),
     createdAt: new Date(),
     updatedAt: new Date(),
-  });
-
-  const Reply = await PostReply.create({
-    id: "1",
-    user_id: user2.id,
-    post_id: Post1.id,
-    content: "Hardwork pays off",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    replied_at: new Date(),
   });
 }
 
