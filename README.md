@@ -29,13 +29,14 @@
 
 - `id`: (bigint serial primary key)
 - `type`: (enum ['post' | 'repost' | 'reply'] (not null, default: 'post'))
-- `reference_id`: (bigint foreign key nullable (references: posts.id))
-- `is_repost`: (bool not null)
-- `user_id`: (bigint foreign key (not null, references: users.id))
+- `referenceId`: (bigint foreign key nullable (references: posts.id))
+- `isRepost`: (bool not null)
+- `userId`: (bigint foreign key (not null, references: users.id))
 - `content`: (string 280 chars max (can be null))
-- `posted_at`: (timestamp nullable)
-- `created_at`: (timestamp (not null, default: NOW))
-- `deleted_at`: (timestamp nullable)
+- `postedAt`: (timestamp nullable)
+- `createdAt`: (timestamp (not null, default: NOW))
+- `updatedAt`: (timestamp (null, default: NOW))
+- `deletedAt`: (timestamp nullable)
 
 ## User Follows Table
 
@@ -44,14 +45,14 @@
 **Attributes:**
 
 - `id` (bigint, primary key)
-- `follower_id` (bigint, foreign key, references users.id)
-- `followed_id` (bigint, foreign key, references users.id)
-- `Followed_at` (timestamp)
+- `followerId` (bigint, foreign key, references users.id)
+- `followedId` (bigint, foreign key, references users.id)
+- `FollowedAt` (timestamp)
 
 **Constraints:**
 
-- Unique combination of (`follower_id`, `followed_id`)
-- Check constraint: `follower_id` != `followed_id`
+- Unique combination of (`followerId`, `followedId`)
+- Check constraint: `followerId` != `followedId`
 
 ## Post Likes Table
 
@@ -60,13 +61,13 @@
 **Attributes:**
 
 - `id` (bigint, primary key)
-- `user_id` (bigint, foreign key, references users.id)
-- `post_id` (bigint, foreign key, references posts.id)
-- `liked_at` (timestamp)
+- `userId` (bigint, foreign key, references users.id)
+- `postId` (bigint, foreign key, references posts.id)
+- `likedAt` (timestamp)
 
 **Constraints:**
 
-- Unique combination of (`user_id`, `post_id`)
+- Unique combination of (`userId`, `postId`)
 
 ## Relationships
 

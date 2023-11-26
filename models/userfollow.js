@@ -2,14 +2,7 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class UserFollow extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+    static associate(models) {}
   }
   UserFollow.init(
     {
@@ -19,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.BIGINT,
       },
-      follower_id: {
+      followerId: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {
@@ -27,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      followed_id: {
+      followedId: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {
@@ -35,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      followed_at: {
+      followedAt: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
@@ -54,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       uniqueKeys: {
         unique_followers: {
-          fields: ["follower_id", "followed_id"],
+          fields: ["followerId", "followedId"],
         },
       },
     },

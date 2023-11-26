@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.BIGINT,
       },
-      follower_id: {
+      followerId: {
         type: Sequelize.BIGINT,
         references: {
           model: "Users",
@@ -17,7 +17,7 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      followed_id: {
+      followedId: {
         type: Sequelize.BIGINT,
         references: {
           model: "Users",
@@ -25,7 +25,7 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      followed_at: {
+      followedAt: {
         type: Sequelize.DATE,
       },
       createdAt: {
@@ -41,11 +41,11 @@ module.exports = {
     await queryInterface.sequelize.query(`
     ALTER TABLE "UserFollows"
     ADD CONSTRAINT "follower_followed_check"
-    CHECK ("follower_id" != "followed_id");
+    CHECK ("followerId" != "followedId");
   `);
     await queryInterface.addConstraint("UserFollows", {
       type: "unique",
-      fields: ["follower_id", "followed_id"],
+      fields: ["followerId", "followedId"],
       name: "unique_followers_constraint",
     });
   },

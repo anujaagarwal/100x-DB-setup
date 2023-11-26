@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "post",
         allowNull: false,
       },
-      reference_id: {
+      referenceId: {
         type: DataTypes.BIGINT,
         allowNull: true,
         references: {
@@ -27,12 +27,12 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      is_repost: {
+      isRepost: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      user_id: {
+      userId: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {
@@ -53,13 +53,14 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      posted_at: { type: DataTypes.DATE, allowNull: true },
-      created_at: {
+      postedAt: { type: DataTypes.DATE, allowNull: true },
+      createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
         allowNull: false,
       },
-      deleted_at: { type: DataTypes.DATE, allowNull: true },
+      deletedAt: { type: DataTypes.DATE, allowNull: true },
+      updatedAt: { type: DataTypes.DATE, allowNull: true },
     },
     {
       sequelize,

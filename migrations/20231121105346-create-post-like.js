@@ -9,21 +9,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.BIGINT,
       },
-      user_id: {
+      userId: {
         type: Sequelize.BIGINT,
         references: {
           model: "Users",
           key: "id",
         },
       },
-      post_id: {
+      postId: {
         type: Sequelize.BIGINT,
         references: {
           model: "Posts",
           key: "id",
         },
       },
-      liked_at: {
+      likedAt: {
         type: Sequelize.DATE,
       },
       createdAt: {
@@ -37,7 +37,7 @@ module.exports = {
     });
     await queryInterface.addConstraint("PostLikes", {
       type: "unique",
-      fields: ["user_id", "post_id"],
+      fields: ["userId", "postId"],
       name: "unique_likes_constraint",
     });
   },

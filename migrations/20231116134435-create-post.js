@@ -16,7 +16,7 @@ module.exports = {
         defaultValue: "post",
         allowNull: false,
       },
-      reference_id: {
+      referenceId: {
         type: DataTypes.BIGINT,
         allowNull: true,
         references: {
@@ -24,12 +24,12 @@ module.exports = {
           key: "id",
         },
       },
-      is_repost: {
+      isRepost: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      user_id: {
+      userId: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {
@@ -38,15 +38,18 @@ module.exports = {
         },
       },
       content: { type: DataTypes.STRING(280), allowNull: true },
-      posted_at: { type: DataTypes.DATE, allowNull: true },
-      created_at: {
+      postedAt: { type: DataTypes.DATE, allowNull: true },
+      createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
         allowNull: false,
       },
-      deleted_at: { type: DataTypes.DATE, allowNull: true },
+      deletedAt: { type: DataTypes.DATE, allowNull: true },
+      updatedAt: { type: DataTypes.DATE, allowNull: true },
     });
   },
 
-  async down(queryInterface, Sequelize) {},
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("Posts");
+  },
 };

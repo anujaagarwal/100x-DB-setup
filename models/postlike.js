@@ -2,14 +2,7 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class PostLike extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+    static associate(models) {}
   }
   PostLike.init(
     {
@@ -19,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.BIGINT,
       },
-      user_id: {
+      userId: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {
@@ -27,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      post_id: {
+      postId: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {
@@ -35,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      liked_at: {
+      likedAt: {
         type: DataTypes.DATE,
       },
       createdAt: {
@@ -52,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       uniqueKeys: {
         unique_followers: {
-          fields: ["user_id", "post_id"],
+          fields: ["userId", "postId"],
         },
       },
     },

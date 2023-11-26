@@ -33,38 +33,36 @@ async function createModels() {
     id: "1",
     content: "I am strongest.",
     type: "post",
-    posted_at: new Date(),
-    user_id: user1.id,
+    postedAt: new Date(),
+    userId: user1.id,
     isRepost: false,
     createdAt: new Date(),
-    updatedAt: new Date(),
   });
 
   const Post2 = await Post.create({
     id: "2",
     content: "I am beautiful.",
     type: "post",
-    posted_at: new Date(),
-    user_id: user2.id,
-    is_repost: false,
-    created_at: new Date(),
-    updated_at: new Date(),
+    postedAt: new Date(),
+    userId: user2.id,
+    isRepost: false,
+    createdAt: new Date(),
   });
 
   const Follow = await UserFollow.create({
     id: "1",
-    follower_id: user1.id,
-    followed_id: user2.id,
-    followed_at: new Date(),
+    followerId: user1.id,
+    followedId: user2.id,
+    followedAt: new Date(),
     createdAt: new Date(),
     updatedAt: new Date(),
   });
 
   const Like = await PostLike.create({
     id: "1",
-    user_id: user1.id,
-    post_id: Post1.id,
-    liked_at: new Date(),
+    userId: user1.id,
+    postId: Post1.id,
+    likedAt: new Date(),
     createdAt: new Date(),
     updatedAt: new Date(),
   });
